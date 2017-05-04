@@ -1,18 +1,17 @@
 import React, {Component} from 'react';
-import ReactDOM, {findDOMNode} from 'react-dom';
 
 import './assets/App.scss';
 import './App.css';
 import 'normalize.css';
-import '../node_modules/highlight.js/styles/atom-one-dark.css';
+
 import LeftPanel from "./components/LeftPanel";
+
 import {DragDropContextProvider} from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import ComponentContainer from "./components/lib/ComponentContainer";
 import Row from "./components/lib/Row";
 import Col from "./components/lib/Col";
-
-var Highlight = require('react-highlight');
+import CodePanel from "./components/CodePanel";
 
 class App extends Component {
 
@@ -22,11 +21,13 @@ class App extends Component {
         this.state = {
             hasComponents: false,
             dropzone: [],
-            rows: [{numCols: 1},{numCols: 2},{numCols: 3}],
+            rows: [{numCols: 1}, {numCols: 2}, {numCols: 3}],
             numCols: 1,
             panelRowOpened: false,
             showCodePanel: false,
         }
+
+        this.code = "";
     }
 
     /**
@@ -58,21 +59,6 @@ class App extends Component {
 
     handleDrop(e, component) {
 
-        const el = ReactDOM.findDOMNode(component);
-        fetch("/components/" + e.name + "/" + e.name + '.html',
-            {
-                headers: new Headers({
-                    'Content-Type': 'text/html'
-                })
-            })
-            .then(resp => resp.text())
-            .then(
-                comp => {
-                    el.innerHTML += comp;
-                    el.setAttribute("contenteditable", true);
-                    this.code = document.getElementById('dropzone').innerHTML;
-                }
-            );
     }
 
     handleNumCols(e) {
@@ -83,7 +69,7 @@ class App extends Component {
         e.preventDefault();
         this.setState({
             numCols: e.target.value,
-            panelRowOpened:false
+            panelRowOpened: false
         });
     }
 
@@ -99,10 +85,6 @@ class App extends Component {
         link.setAttribute('download', 'index.html');
         link.setAttribute('href', 'data:text/html;charset=utf-8,' + encodeURIComponent(elHtml));
         link.click();
-    }
-
-    handleShowCodePanel() {
-        this.setState(prevState => ({showCodePanel: !prevState.showCodePanel}));
     }
 
     render() {
@@ -123,7 +105,7 @@ class App extends Component {
             (r, index) => {
                 let cols = [];
                 for (let i = 0; i < r.numCols; i++) {
-                    cols.push(<Col key={i} onDrop={this.handleDrop.bind(this)}/>);
+                    cols.push(<Col key={i} onDrop={this.handleDrop.bind(this)} />);
                 }
                 return (
                     <Row key={index}>
@@ -145,10 +127,11 @@ class App extends Component {
                     <div id="dropzone" style={style.contents} ref={dropzone => this.dropzone = dropzone}>
                         {rows}
                     </div>
-                    <div className={"add-row " + (this.state.panelRowOpened ? "active" : "")}
+                    <div style={{display: 'none'}}
+                         className={"add-row " + (this.state.panelRowOpened ? "active" : "")}
                          onClick={this.openRow.bind(this)}>
                         <div className={"data " + (this.state.panelRowOpened ? "active" : "")}>
-                            <h1 style={{color:"#C5E0FF", fontSize:"18px", marginTop:20}}>
+                            <h1 style={{color: "#C5E0FF", fontSize: "18px", marginTop: 20}}>
                                 Número de Colunas:
                             </h1>
                             <input type="number"
@@ -158,14 +141,7 @@ class App extends Component {
                             <button onClick={this.handleAddRow.bind(this)}>Cancelar</button>
                         </div>
                     </div>
-                    <div className={"code-panel " + (this.state.showCodePanel ? "opened" : "")}
-                         onClick={this.handleShowCodePanel.bind(this)}>
-
-                        <Highlight className="code">
-                            {this.code}
-                        </Highlight>
-
-                    </div>
+                    <CodePanel/>
                 </div>
 
             </DragDropContextProvider>

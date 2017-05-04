@@ -6,7 +6,7 @@ import ComponentDropped from "./ComponentDropped";
 const boxTarget = {
     drop(props, monitor, component) {
         const item = monitor.getItem();
-
+        props.onDrop(props,monitor,component);
         fetch('/components/' + item.name + "/" + item.name + ".html",
             {
                 headers: new Headers({
@@ -19,7 +19,7 @@ const boxTarget = {
             .then(
                 comp => {
                     component.setState(prevState => ({
-                        items: [...prevState.items, {html:comp, name: item.name, id:item.id}]
+                        items: [...prevState.items, {html:comp, name: item.name, id:prevState.items.length}]
                     }));
                 }
             )
@@ -42,14 +42,16 @@ export default class Col extends Component {
         }
     }
 
-    handleMoveItem(e) {
-
-        console.log(this.state.items);
+    handleMoveItem(id) {
 
         this.setState(
             prevState => ({
-                items: [...prevState.items.filter(item => item.id === e.id)]
+                items: [...prevState.items.filter(item => item.id !== id)]
         }))
+    }
+
+    handleIsEditable(e) {
+        this.setState({componentEditable: e.id, contentEditable: !e.contentEditable});
     }
 
     render() {
@@ -75,6 +77,8 @@ export default class Col extends Component {
                 return <ComponentDropped key={index}
                                          id={content.id}
                                          onMove={this.handleMoveItem.bind(this)}
+                                         onContentEditable={this.handleIsEditable.bind(this)}
+                                         contentEditable={content.id === this.state.componentEditable}
                                          name={content.name}
                                          dangerouslySetInnerHTML={{__html: content.html}}/>
             }

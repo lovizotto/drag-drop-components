@@ -27,7 +27,7 @@ const getStyles = (props) => {
             paddingBottom: 20,
             backgroundColor: "#fff",
             flexDirection: "row",
-            alignItems: "center",
+            alignItems: "top",
             justifyContent: "space-between",
             alignContent: "center"
         },

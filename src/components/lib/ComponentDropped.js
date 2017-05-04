@@ -25,11 +25,23 @@ const boxSource = {
 }))
 export default class ComponentDropped extends Component {
 
+    constructor(props) {
+        super(props);
+        
+        this.state = {
+            contentEditable: false
+        }
+    }
+
     static defaultProps = {
         onAddBefore: () => {},
         onAddAfter: () => {},
         onDelete: () => {},
     };
+
+    componentWillReceiveProps(props) {
+        //this.setState({contentEditable: props.contentEditable});
+    }
 
     handleAddBefore(e) {
         this.props.onAddBefore(e);
@@ -41,6 +53,20 @@ export default class ComponentDropped extends Component {
 
     handleDelete(e) {
         this.props.onDelete(e);
+    }
+
+    turnOffEditable() {
+        // this.setState(prevState => ({
+        //     contentEditable: false
+        // }));
+    }
+
+    handleTurnContentEditable() {
+        // console.log(this.props.contentEditable);
+        // this.setState(prevState => ({
+        //     contentEditable: !prevState.contentEditable
+        // }));
+        this.props.onContentEditable({isEditable: this.state.contentEditable, id: this.props.id});
     }
 
     render() {
@@ -59,7 +85,11 @@ export default class ComponentDropped extends Component {
         const style = getStyles(this.props);
 
         return connectDragSource(
-            <div style={{opacity}}>
+            <div style={{opacity}}
+                 onDoubleClick={this.handleTurnContentEditable.bind(this)}
+                 onMouseLeave={this.turnOffEditable.bind(this)}
+                 contentEditable={this.state.contentEditable}
+            >
                 <div style={{}} onClick={this.handleDelete.bind(this)}/>
                 <div style={{}} onClick={this.handleAddBefore.bind(this)}/>
                 <div dangerouslySetInnerHTML={{...dangerouslySetInnerHTML}}/>
