@@ -43,6 +43,12 @@ class App extends Component {
                 name: "textfield",
                 thumb: "textfield.png",
                 file: "textfield.html"
+            },
+            {
+                description: "Feature",
+                name: "feature",
+                thumb: "feature.png",
+                file: "feature.html"
             }
         ];
     }
