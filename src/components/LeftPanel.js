@@ -23,7 +23,6 @@ const getStyles = (props) => {
     return {
         panel: {
             width: "200px",
-            height: window.innerHeight,
             backgroundColor: "#333",
         }
     }
