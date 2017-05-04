@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import ReactDOM, {findDOMNode} from 'react-dom';
+
 import './App.css';
 import 'normalize.css';
 import LeftPanel from "./components/LeftPanel";
@@ -43,7 +43,10 @@ class App extends Component {
                     document.getElementById('dropzone').innerHTML += comp;
                 }
             );
+    }
 
+    exportHTML(e) {
+        alert("Aqui vc exporta o HTML");
     }
 
     render() {
