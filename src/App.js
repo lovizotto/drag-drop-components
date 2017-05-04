@@ -25,6 +25,10 @@ class App extends Component {
         }
     }
 
+    /**
+     * Lista de todos os components cadastrados
+     * @return {[*,*]}
+     */
     getComponents() {
         return [
             {
@@ -68,11 +72,10 @@ class App extends Component {
         this.setState({numCols: e.target.value});
     }
 
-    handleAddRow() {
-        const row = {numCols: this.state.numCols};
-
+    handleAddRow(e) {
+        e.preventDefault();
         this.setState(prevState => ({
-            rows: [...prevState.rows, row]
+            rows: [prevState.rows, {numCols: prevState.numCols}]
         }));
     }
 
@@ -104,21 +107,13 @@ class App extends Component {
             </li>
         );
 
-        let rows;
-        if (this.state.rows.length === 0) {
-            rows = <Row onDrop={this.handleDropContainer.bind(this)}>
-                Adicione um conteúdo!
-            </Row>
-        } else {
-            rows = this.state.rows.map((r, index) => {
-                let cols = [<Col key={0} onDrop={this.handleDropContainer.bind(this)}/>];
-                for (let i = 1; i < r.numCols; i++) {
-                    cols = [...cols,<Col key={i} onDrop={this.handleDropContainer.bind(this)}/> ]
-                }
-
-                return <Row key={index} onDrop={this.handleDropContainer.bind(this)}>{cols}</Row>
-            });
-        }
+        const rows = this.state.rows.map(
+            (r, index) => {
+                return (
+                    <Row key={index}><Col onDrop={this.handleDrop.bind(this)}/><Col onDrop={this.handleDrop.bind(this)}/><Col onDrop={this.handleDrop.bind(this)}/></Row>
+                );
+            }
+        )
 
         return (
             <DragDropContextProvider backend={HTML5Backend}>
@@ -140,7 +135,7 @@ class App extends Component {
                             </h1>
                             <input type="number"
                                    onChange={this.handleNumCols.bind(this)}
-                                   value={this.state.numCols}/>
+                                   value={this.state.numCols} />
                             <button onClick={this.handleAddRow.bind(this)}>
                                 Adicionar
                             </button>
