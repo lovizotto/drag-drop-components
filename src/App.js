@@ -22,6 +22,7 @@ class App extends Component {
             rows: [{numCols: 1},{numCols: 2},{numCols: 3}],
             numCols: 1,
             panelRowOpened: false,
+            showCodePanel: false,
         }
     }
 
@@ -60,6 +61,7 @@ class App extends Component {
                 comp => {
                     el.innerHTML += comp;
                     el.setAttribute("contenteditable", true);
+                    this.code.innerText = document.getElementById('dropzone').innerHTML;
                 }
             );
     }
@@ -78,7 +80,6 @@ class App extends Component {
             numCols: e.target.value,
             panelRowOpened:false
         });
-
     }
 
     openRow() {
@@ -93,6 +94,10 @@ class App extends Component {
         link.setAttribute('download', 'index.html');
         link.setAttribute('href', 'data:text/html;charset=utf-8,' + encodeURIComponent(elHtml));
         link.click();
+    }
+
+    handleShowCodePanel() {
+        this.setState(prevState => ({showCodePanel: !prevState.showCodePanel}));
     }
 
     render() {
@@ -148,7 +153,12 @@ class App extends Component {
                             <button onClick={this.handleAddRow.bind(this)}>Cancelar</button>
                         </div>
                     </div>
+                    <div className={"code-panel " + (this.state.showCodePanel ? "opened" : "")}
+                         onClick={this.handleShowCodePanel.bind(this)}>
+                        <pre className="code" ref={code => this.code = code}/>
+                    </div>
                 </div>
+
             </DragDropContextProvider>
         );
     }
