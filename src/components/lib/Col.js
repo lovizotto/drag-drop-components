@@ -32,6 +32,7 @@ const boxTarget = {
     canDrop: monitor.canDrop(),
     isOverCurrent: monitor.isOver({shallow: true}),
 }))
+
 export default class Col extends Component {
 
     constructor(props) {
@@ -82,7 +83,7 @@ export default class Col extends Component {
                                          name={content.name}
                                          dangerouslySetInnerHTML={{__html: content.html}}/>
             }
-        )
+        );
 
         return connectDropTarget(
             <div className="Col" style={{...style.col, backgroundColor}}>
