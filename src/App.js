@@ -4,12 +4,15 @@ import ReactDOM, {findDOMNode} from 'react-dom';
 import './assets/App.scss';
 import './App.css';
 import 'normalize.css';
+import '../node_modules/highlight.js/styles/atom-one-dark.css';
 import LeftPanel from "./components/LeftPanel";
 import {DragDropContextProvider} from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import ComponentContainer from "./components/lib/ComponentContainer";
 import Row from "./components/lib/Row";
 import Col from "./components/lib/Col";
+
+var Highlight = require('react-highlight');
 
 class App extends Component {
 
@@ -67,7 +70,7 @@ class App extends Component {
                 comp => {
                     el.innerHTML += comp;
                     el.setAttribute("contenteditable", true);
-                    this.code.innerText = document.getElementById('dropzone').innerHTML;
+                    this.code = document.getElementById('dropzone').innerHTML;
                 }
             );
     }
@@ -161,7 +164,11 @@ class App extends Component {
                     </div>
                     <div className={"code-panel " + (this.state.showCodePanel ? "opened" : "")}
                          onClick={this.handleShowCodePanel.bind(this)}>
-                        <pre className="code" ref={code => this.code = code}/>
+
+                        <Highlight className="code">
+                            {this.code}
+                        </Highlight>
+
                     </div>
                 </div>
 
