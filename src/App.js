@@ -53,6 +53,12 @@ class App extends Component {
                 name: "feature",
                 thumb: "feature.png",
                 file: "feature.html"
+            },
+            {
+                description: "Profile",
+                name: "profile",
+                thumb: "profile.png",
+                file: "profile.html"
             }
         ];
     }
