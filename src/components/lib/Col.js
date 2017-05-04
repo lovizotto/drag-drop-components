@@ -44,8 +44,9 @@ const getStyles = (props) => {
     return ({
         col: {
             flex: 1,
-            margin: 15,
-            minHeight: "100px",
+            marginLeft: 15,
+            marginRight: 15,
+            minHeight: 200,
             height: "auto"
         }
     });

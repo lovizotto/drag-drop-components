@@ -19,7 +19,7 @@ class App extends Component {
         this.state = {
             hasComponents: false,
             dropzone: [],
-            rows: [{numCols: 1}],
+            rows: [{numCols: 1},{numCols: 2},{numCols: 3}],
             numCols: 1,
             panelRowOpened: false,
         }
@@ -74,9 +74,11 @@ class App extends Component {
 
     handleAddRow(e) {
         e.preventDefault();
-        this.setState(prevState => ({
-            rows: [prevState.rows, {numCols: prevState.numCols}]
-        }));
+        this.setState({
+            numCols: e.target.value,
+            panelRowOpened:false
+        });
+
     }
 
     openRow() {
@@ -109,11 +111,17 @@ class App extends Component {
 
         const rows = this.state.rows.map(
             (r, index) => {
+                let cols = [];
+                for (let i = 0; i < r.numCols; i++) {
+                    cols.push(<Col key={i} onDrop={this.handleDrop.bind(this)}/>);
+                }
                 return (
-                    <Row key={index}><Col onDrop={this.handleDrop.bind(this)}/><Col onDrop={this.handleDrop.bind(this)}/><Col onDrop={this.handleDrop.bind(this)}/></Row>
+                    <Row key={index}>
+                        {cols}
+                    </Row>
                 );
             }
-        )
+        );
 
         return (
             <DragDropContextProvider backend={HTML5Backend}>
@@ -124,21 +132,20 @@ class App extends Component {
                         </ul>
                         <button onClick={this.exportHTML.bind(this)}>Exportar</button>
                     </LeftPanel>
-                    <div id="dropzone" style={style.contents}>
+                    <div id="dropzone" style={style.contents} ref={dropzone => this.dropzone = dropzone}>
                         {rows}
                     </div>
                     <div className={"add-row " + (this.state.panelRowOpened ? "active" : "")}
                          onClick={this.openRow.bind(this)}>
                         <div className={"data " + (this.state.panelRowOpened ? "active" : "")}>
-                            <h1>
+                            <h1 style={{color:"#C5E0FF", fontSize:"18px", marginTop:20}}>
                                 Número de Colunas:
                             </h1>
                             <input type="number"
                                    onChange={this.handleNumCols.bind(this)}
                                    value={this.state.numCols} />
-                            <button onClick={this.handleAddRow.bind(this)}>
-                                Adicionar
-                            </button>
+                            <button onClick={this.handleAddRow.bind(this)}>Adicionar</button>
+                            <button onClick={this.handleAddRow.bind(this)}>Cancelar</button>
                         </div>
                     </div>
                 </div>

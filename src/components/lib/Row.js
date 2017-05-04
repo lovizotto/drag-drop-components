@@ -22,13 +22,9 @@ const getStyles = (props) => {
     return ({
         main: {
             flex: 1,
-            minHeight: 200,
             display: "flex",
-            margin: 10,
-            paddingTop: 30,
-            paddingLeft: 30,
-            paddingRight: 30,
-            paddingBottom: 30,
+            paddingTop: 20,
+            paddingBottom: 20,
             backgroundColor: "#fff",
             flexDirection: "row",
             alignItems: "center",

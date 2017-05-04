@@ -27,15 +27,18 @@
     }
 
     &.active {
-      bottom: 100px;
+      bottom: 150px;
     }
 
     .data {
+      margin-top: 40px;
+      padding-top: 40px;
+      background-color: white;
       height: 0;
       overflow: hidden;
 
       &.active {
-        height: 100px;
+        height: 150px;
         text-align: center;
 
       }
