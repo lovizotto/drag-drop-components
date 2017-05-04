@@ -37,16 +37,22 @@ class App extends Component {
                     'Content-Type': 'text/html'
                 })
             })
-            .then( resp => resp.text() )
+            .then(resp => resp.text())
             .then(
                 comp => {
                     document.getElementById('dropzone').innerHTML += comp;
+                    document.getElementById('dropzone').setAttribute("contenteditable", true);
                 }
             );
     }
 
     exportHTML(e) {
-        alert("Aqui vc exporta o HTML");
+        let elHtml = document.getElementById('dropzone').innerHTML;
+        let link = document.createElement('a');
+
+        link.setAttribute('download', 'index.html');
+        link.setAttribute('href', 'data:text/html;charset=utf-8,' + encodeURIComponent(elHtml));
+        link.click();
     }
 
     render() {
@@ -70,12 +76,14 @@ class App extends Component {
                         <ul style={style.leftPanelList}>
                             {components}
                         </ul>
+                        <button onClick={this.exportHTML.bind(this)}>Exportar</button>
                     </LeftPanel>
                     <Canvas onDrop={this.handleDrop.bind(this)}
                             hasComponents={this.state.hasComponents}
-                            ref={canvas => this.canvas = canvas}/>
+                            ref={canvas => this.canvas = canvas} />
 
                 </div>
+
             </DragDropContextProvider>
         );
     }
