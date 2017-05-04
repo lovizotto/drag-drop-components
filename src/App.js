@@ -1,12 +1,15 @@
 import React, {Component} from 'react';
+import ReactDOM, {findDOMNode} from 'react-dom';
 
+import './assets/App.scss';
 import './App.css';
 import 'normalize.css';
 import LeftPanel from "./components/LeftPanel";
-import Canvas from "./components/Canvas";
 import {DragDropContextProvider} from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import ComponentContainer from "./components/lib/ComponentContainer";
+import Row from "./components/lib/Row";
+import Col from "./components/lib/Col";
 
 class App extends Component {
 
@@ -15,6 +18,10 @@ class App extends Component {
 
         this.state = {
             hasComponents: false,
+            dropzone: [],
+            rows: [{numCols: 1}],
+            numCols: 1,
+            panelRowOpened: false,
         }
     }
 
@@ -25,12 +32,19 @@ class App extends Component {
                 name: "button",
                 thumb: "button.png",
                 file: "button.html"
+            },
+            {
+                description: "Campo de Texto",
+                name: "textfield",
+                thumb: "textfield.png",
+                file: "textfield.html"
             }
         ];
     }
 
-    handleDrop(e) {
+    handleDrop(e, component) {
 
+        const el = ReactDOM.findDOMNode(component);
         fetch("/components/" + e.name + "/" + e.name + '.html',
             {
                 headers: new Headers({
@@ -40,10 +54,31 @@ class App extends Component {
             .then(resp => resp.text())
             .then(
                 comp => {
-                    document.getElementById('dropzone').innerHTML += comp;
-                    document.getElementById('dropzone').setAttribute("contenteditable", true);
+                    el.innerHTML += comp;
+                    el.setAttribute("contenteditable", true);
                 }
             );
+    }
+
+    handleDropContainer(e) {
+        this.handleDrop(e);
+    }
+
+    handleNumCols(e) {
+        this.setState({numCols: e.target.value});
+    }
+
+    handleAddRow() {
+        const row = {numCols: this.state.numCols};
+
+        this.setState(prevState => ({
+            rows: [...prevState.rows, row]
+        }));
+    }
+
+    openRow() {
+        if (this.state.panelRowOpened) return false;
+        this.setState(prevState => ({panelRowOpened: !prevState.panelRowOpened}))
     }
 
     exportHTML(e) {
@@ -69,21 +104,49 @@ class App extends Component {
             </li>
         );
 
+        let rows;
+        if (this.state.rows.length === 0) {
+            rows = <Row onDrop={this.handleDropContainer.bind(this)}>
+                Adicione um conteúdo!
+            </Row>
+        } else {
+            rows = this.state.rows.map((r, index) => {
+                let cols = [<Col key={0} onDrop={this.handleDropContainer.bind(this)}/>];
+                for (let i = 1; i < r.numCols; i++) {
+                    cols = [...cols,<Col key={i} onDrop={this.handleDropContainer.bind(this)}/> ]
+                }
+
+                return <Row key={index} onDrop={this.handleDropContainer.bind(this)}>{cols}</Row>
+            });
+        }
+
         return (
             <DragDropContextProvider backend={HTML5Backend}>
-                <div className="App">
+                <div className="App" style={style.App}>
                     <LeftPanel>
                         <ul style={style.leftPanelList}>
                             {components}
                         </ul>
                         <button onClick={this.exportHTML.bind(this)}>Exportar</button>
                     </LeftPanel>
-                    <Canvas onDrop={this.handleDrop.bind(this)}
-                            hasComponents={this.state.hasComponents}
-                            ref={canvas => this.canvas = canvas} />
-
+                    <div id="dropzone" style={style.contents}>
+                        {rows}
+                    </div>
+                    <div className={"add-row " + (this.state.panelRowOpened ? "active" : "")}
+                         onClick={this.openRow.bind(this)}>
+                        <div className={"data " + (this.state.panelRowOpened ? "active" : "")}>
+                            <h1>
+                                Número de Colunas:
+                            </h1>
+                            <input type="number"
+                                   onChange={this.handleNumCols.bind(this)}
+                                   value={this.state.numCols}/>
+                            <button onClick={this.handleAddRow.bind(this)}>
+                                Adicionar
+                            </button>
+                        </div>
+                    </div>
                 </div>
-
             </DragDropContextProvider>
         );
     }
@@ -92,6 +155,10 @@ class App extends Component {
 export default App;
 
 const getStyles = (props) => ({
+    App: {
+        display: "flex",
+        flexDirection: "row",
+    },
     leftPanelList: {
         listStyle: "none",
         margin: 0,
@@ -104,5 +171,9 @@ const getStyles = (props) => ({
             fontWeight: "normal",
             margin: 5
         }
+    },
+    contents: {
+        flex: 1,
+        flexDirection: "col",
     }
 });

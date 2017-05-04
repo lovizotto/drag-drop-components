@@ -15,18 +15,15 @@ class LeftPanel extends Component {
             </div>
         );
     }
-}
+};
 
 export default LeftPanel;
 
 const getStyles = (props) => {
     return {
         panel: {
-            position: "fixed",
-            left: "0",
-            top: "0",
             width: "200px",
-            height: "100vh",
+            height: window.innerHeight,
             backgroundColor: "#333",
         }
     }

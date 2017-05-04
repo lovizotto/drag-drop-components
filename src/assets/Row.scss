@@ -1,0 +1,15 @@
+.Row {
+  position: relative;
+  border: 1px solid rgba(0,0,0,0);
+
+  -webkit-transition: border .3s, opacity .3s;
+  -moz-transition: border .3s, opacity .3s;
+  -ms-transition: border .3s, opacity .3s;
+  -o-transition: border .3s, opacity .3s;
+  transition: border .3s, opacity .3s;
+
+  &:hover {
+    border: 1px solid #C5E0FF;
+  }
+
+}
