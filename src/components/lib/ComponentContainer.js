@@ -1,20 +1,17 @@
-import React, { Component } from 'react';
-import { DragSource } from 'react-dnd';
+import React, {Component} from 'react';
+import {DragSource} from 'react-dnd';
 
 const boxSource = {
-    beginDrag(props) {
+    beginDrag(props, monitor, component) {
         return {
             name: props.html,
+            id: props.id,
         };
     },
 
-    endDrag(props, monitor) {
+    endDrag(props, monitor, component) {
         const item = monitor.getItem();
         const dropResult = monitor.getDropResult();
-
-        if (dropResult) {
-            //alert(dropResult);
-        }
     },
 };
 
@@ -25,11 +22,13 @@ const boxSource = {
 export default class ComponentContainer extends Component {
 
     static defaultProps = {
-        onAddBefore: () => {},
-        onAddAfter: () => {},
-        onDelete: () => {},
-    }
-
+        onAddBefore: () => {
+        },
+        onAddAfter: () => {
+        },
+        onDelete: () => {
+        },
+    };
 
     handleAddBefore(e) {
         this.props.onAddBefore(e);
@@ -58,10 +57,10 @@ export default class ComponentContainer extends Component {
 
         return connectDragSource(
             <div style={{opacity}}>
-                <div style={{}} onClick={this.handleDelete.bind(this)}/>
-                <div style={{}} onClick={this.handleAddBefore.bind(this)}/>
+                <div style={{}} onClick={this.handleDelete.bind(this)} />
+                <div style={{}} onClick={this.handleAddBefore.bind(this)} />
                 {children}
-                <div style={{}} onClick={this.handleAddAfter.bind(this)}/>
+                <div style={{}} onClick={this.handleAddAfter.bind(this)} />
             </div>,);
     }
 }

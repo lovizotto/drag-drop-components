@@ -65,15 +65,9 @@ class App extends Component {
             .then(resp => resp.text())
             .then(
                 comp => {
-                    el.innerHTML += comp;
-                    el.setAttribute("contenteditable", true);
                     this.code.innerText = document.getElementById('dropzone').innerHTML;
                 }
             );
-    }
-
-    handleDropContainer(e) {
-        this.handleDrop(e);
     }
 
     handleNumCols(e) {
@@ -112,7 +106,7 @@ class App extends Component {
 
         const components = this.getComponents().map(
             (c, index) => <li key={index} style={style.item}>
-                <ComponentContainer html={c.name}>
+                <ComponentContainer html={c.name} id={index}>
                     <img src={process.env.PUBLIC_URL + "/components/" + c.name + "/" + c.thumb}
                          style={{maxWidth: "100%"}} />
                     <h5 style={style.item.header}>{c.description}</h5>
