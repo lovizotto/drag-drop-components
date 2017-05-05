@@ -24,6 +24,10 @@ const getStyles = (props) => {
         panel: {
             width: "200px",
             backgroundColor: "#333",
+            position:"fixed",
+            height: "100vh",
+            overflowY: "scroll",
+            textAlign: "center"
         }
     }
 }

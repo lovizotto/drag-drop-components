@@ -1,5 +1,44 @@
 <div class="c-input">
-    <label class="c-input__label">{{ label }}</label>
-    <input class="c-input__input" type="{{ type }}" name="{{ name }}" placeholder="{{ placeholder }}">
-    <div class="c-input__msg">{{ message }}</div>
+    <label class="c-input__label">Campo de Texto:</label>
+    <input class="c-input__input" type="{{ type }}" name="{{ name }}" placeholder="Campo de Texto">
+    <div class="c-input__msg">Preencha este campo de texto</div>
 </div>
+
+<style>
+    @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800,800i');
+
+    .c-input {
+        box-sizing: border-box;
+        margin: 0 auto;
+        color: #333;
+        padding: 5px 20px;
+        text-align: left;
+        font-family: 'Open Sans', sans-serif;
+    }
+
+    .c-input__label {
+        display: block;
+        color: #666;
+        margin: 5px 0 5px;
+        font-weight: bold;
+        font-size: 14px;
+    }
+
+    .c-input__input {
+        margin: 0;
+        width: calc(100% - 20px);
+        padding: 10px;
+        margin-top: 3px;
+        font-size: 14px;
+        color: #666;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+    }
+
+    .c-input__msg {
+        margin-left: 2px;
+        color: #ccc;
+        margin-top: 5px;
+        font-size: 10px;
+    }
+</style>

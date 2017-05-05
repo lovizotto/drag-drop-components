@@ -10,8 +10,10 @@
   }
 
   #dropzone {
-    max-width: 80vw!important;
+    max-width: calc(80vw - 150px)!important;
     margin: 20px auto;
+    position: relative;
+    left: 100px;
     background-color: #fff;
   }
 

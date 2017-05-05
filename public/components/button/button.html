@@ -1,4 +1,37 @@
-<button className="c-button" type="button">
-    <div className="c-button__text">{{text}}</div>
-    <div className="c-button__icon▾">{{icon}}</div>
+<button class="c-button" type="button">
+    <div class="c-button__text">Basic Button</div>
+    <div class="c-button__icon"></div>
 </button>
+
+<style>
+    @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800,800i');
+    .c-button {
+        display: block;
+        margin: 10px auto;
+
+        color: white;
+        font-family: 'Open Sans', sans-serif;
+        background-color: dodgerblue;
+        padding: 10px 20px 3px;
+        outline: none;
+        border:none;
+        font-weight: bold;
+        border-radius:10px;
+    }
+
+    .c-button:active {
+        background-color: #81B2E2;
+    }
+
+    .c-button__text {
+        margin: 10px;
+        color: white;
+        font-size: 16px;
+    }
+
+    .c-button__icon {
+        font-size: 14px;
+        margin: 20px;
+    }
+
+</style>

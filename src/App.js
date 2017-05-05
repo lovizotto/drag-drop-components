@@ -37,18 +37,6 @@ class App extends Component {
     getComponents() {
         return [
             {
-                description: "Botão Responsivo",
-                name: "button",
-                thumb: "button.png",
-                file: "button.html"
-            },
-            {
-                description: "Campo de Texto",
-                name: "textfield",
-                thumb: "textfield.png",
-                file: "textfield.html"
-            },
-            {
                 description: "Feature",
                 name: "feature",
                 thumb: "feature.png",
@@ -59,7 +47,19 @@ class App extends Component {
                 name: "profile",
                 thumb: "profile.png",
                 file: "profile.html"
-            }
+            },
+            {
+                description: "Campo de Texto",
+                name: "textfield",
+                thumb: "textfield.png",
+                file: "textfield.html"
+            },
+            {
+                description: "Botão Responsivo",
+                name: "button",
+                thumb: "button.png",
+                file: "button.html"
+            },
         ];
     }
 
@@ -147,7 +147,7 @@ class App extends Component {
                             <button onClick={this.handleAddRow.bind(this)}>Cancelar</button>
                         </div>
                     </div>
-                    <CodePanel/>
+                    <CodePanel />
                 </div>
 
             </DragDropContextProvider>
