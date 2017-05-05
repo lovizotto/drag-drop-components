@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { DragSource } from 'react-dnd';
 
+import '../../assets/Dropped.scss'
+
 const boxSource = {
     beginDrag(props) {
         return {
@@ -52,7 +54,7 @@ export default class ComponentDropped extends Component {
     }
 
     handleDelete(e) {
-        this.props.onDelete(e);
+        this.props.onDelete(e, this.props.id);
     }
 
     turnOffEditable() {
@@ -85,15 +87,13 @@ export default class ComponentDropped extends Component {
         const style = getStyles(this.props);
 
         return connectDragSource(
-            <div style={{opacity}}
+            <div className="Dropped" style={{opacity}}
                  onDoubleClick={this.handleTurnContentEditable.bind(this)}
                  onMouseLeave={this.turnOffEditable.bind(this)}
                  contentEditable={this.state.contentEditable}
             >
-                <div style={{}} onClick={this.handleDelete.bind(this)}/>
-                <div style={{}} onClick={this.handleAddBefore.bind(this)}/>
+                <div className="delete-button" onClick={this.handleDelete.bind(this)}/>
                 <div dangerouslySetInnerHTML={{...dangerouslySetInnerHTML}}/>
-                <div style={{}} onClick={this.handleAddAfter.bind(this)}/>
             </div>,);
     }
 }

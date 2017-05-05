@@ -57,10 +57,7 @@ export default class ComponentContainer extends Component {
 
         return connectDragSource(
             <div style={{opacity}}>
-                <div style={{}} onClick={this.handleDelete.bind(this)} />
-                <div style={{}} onClick={this.handleAddBefore.bind(this)} />
                 {children}
-                <div style={{}} onClick={this.handleAddAfter.bind(this)} />
             </div>,);
     }
 }

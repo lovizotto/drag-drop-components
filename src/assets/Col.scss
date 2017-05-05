@@ -1,5 +1,6 @@
 .Col {
   border: 1px solid rgba(0,0,0,0);
+  position: relative;
 
   -webkit-transition: border .3s, opacity .3s;
   -moz-transition: border .3s, opacity .3s;
@@ -9,7 +10,6 @@
 
   &:hover {
     border: 1px solid rgba(0,0,0,.1);
-    background-color: #C5E0FF!important;
+    background-color: #F3F9FF!important;
   }
-
 }

@@ -1,0 +1,31 @@
+.Dropped {
+  position: relative;
+
+  &:hover {
+    background-color: #D1E7FF;
+  }
+
+  .delete-button {
+    position: absolute;
+    right: 0;
+    z-index: 3000;
+    top: -30px;
+    width: 30px;
+    height: 0;
+    background-color: darkred;
+    opacity: .1;
+    background-image: url(./images/ic-delete.svg);
+    background-repeat: no-repeat;
+    background-position: center center;
+  }
+
+  &:hover {
+    .delete-button {
+      height: 30px;
+
+      &:hover {
+        opacity: .3;
+      }
+    }
+  }
+}

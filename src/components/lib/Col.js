@@ -44,11 +44,17 @@ export default class Col extends Component {
     }
 
     handleMoveItem(id) {
-
         this.setState(
             prevState => ({
                 items: [...prevState.items.filter(item => item.id !== id)]
         }))
+    }
+
+    handleDeleteItem(e, id) {
+        this.setState(
+            prevState => ({
+                items: [...prevState.items.filter(item => item.id !== id)]
+            }))
     }
 
     handleIsEditable(e) {
@@ -66,9 +72,9 @@ export default class Col extends Component {
 
         let backgroundColor = '#fff';
         if (isActive) {
-            backgroundColor = 'lightgreen';
+            backgroundColor = '#DEF0CB';
         } else if (canDrop) {
-            backgroundColor = '#ccc';
+            backgroundColor = '#F8F8F8';
         }
 
         const style = getStyles(this.props);
@@ -78,6 +84,7 @@ export default class Col extends Component {
                 return <ComponentDropped key={index}
                                          id={content.id}
                                          onMove={this.handleMoveItem.bind(this)}
+                                         onDelete={this.handleDeleteItem.bind(this)}
                                          onContentEditable={this.handleIsEditable.bind(this)}
                                          contentEditable={content.id === this.state.componentEditable}
                                          name={content.name}
