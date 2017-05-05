@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import './assets/App.scss';
 import './App.css';
 import 'normalize.css';
+import logo from  './assets/images/logo.svg';
 
 import LeftPanel from "./components/LeftPanel";
 
@@ -37,6 +38,29 @@ class App extends Component {
     getComponents() {
         return [
             {
+                description: "Feature",
+                name: "feature",
+                thumb: "feature.png",
+                file: "feature.html"
+            },
+            {
+                description: "Profile",
+                name: "profile",
+                thumb: "profile.png",
+                file: "profile.html"
+            },
+            {
+                description: "Campo de Texto",
+                name: "textfield",
+                thumb: "textfield.png",
+                file: "textfield.html"
+            },
+            {
+                description: "Botão Responsivo",
+                name: "button",
+                thumb: "button.png",
+                file: "button.html"
+            },{
                 description: "Feature",
                 name: "feature",
                 thumb: "feature.png",
@@ -125,6 +149,9 @@ class App extends Component {
             <DragDropContextProvider backend={HTML5Backend}>
                 <div className="App" style={style.App}>
                     <LeftPanel>
+                        <div style={{backgroundColor: "#111", position: "fixed", width: "200px"}}>
+                            <img src={logo} style={{margin:20}}/>
+                        </div>
                         <ul style={style.leftPanelList}>
                             {components}
                         </ul>
@@ -165,6 +192,7 @@ const getStyles = (props) => ({
     leftPanelList: {
         listStyle: "none",
         margin: 0,
+        marginTop:80,
         padding: 0
     },
     item: {
@@ -172,6 +200,7 @@ const getStyles = (props) => ({
         header: {
             color: "white",
             fontWeight: "normal",
+            fontSize: 10,
             margin: 5
         }
     },

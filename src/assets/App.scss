@@ -9,6 +9,18 @@
     font-family: 'Open Sans', sans-serif;
   }
 
+  .LeftPanel li {
+    -webkit-transition: background .3s;
+    -moz-transition: background .3s;
+    -ms-transition: background .3s;
+    -o-transition: background .3s;
+    transition: background .3s;
+
+    &:hover {
+      background-color: #222;
+    }
+  }
+
   #dropzone {
     max-width: calc(80vw - 150px)!important;
     margin: 20px auto;
