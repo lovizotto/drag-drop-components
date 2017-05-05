@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import ReactDOM, {findDOMNode} from 'react-dom';
-import '../../node_modules/highlight.js/styles/darcula.css';
+import '../CodePanelCode.css';
 import Highlight from 'react-highlight';
 import '../assets/CodePanel.scss';
 
@@ -64,7 +64,7 @@ const getStyles = (props) => {
     return ({
         btnCopy: {
             backgroundColor: "#666",
-            color: "#aaaa00",
+            color: "#81B2E2",
             padding: 10,
             border: "none",
             outline: "none",
